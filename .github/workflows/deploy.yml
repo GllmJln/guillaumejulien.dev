@@ -1,0 +1,58 @@
+name: Deploy website
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy site
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+        working-directory: ./front-end
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE }}
+          aws-region: eu-west-1
+          role-session-name: Github-actions
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: |
+          terraform init -backend-config="bucket=${{secrets.BUCKET_NAME}}" > logs 2>> errors.log
+        working-directory: ./terraform
+
+      - name: Terraform apply
+        run: |
+          terraform apply -auto-approve -no-color -var domain_name=guillaumejulien.dev > logs 2>> errors.log
+        working-directory: ./terraform
+
+      - name: Add files to bucket
+        run: |
+          aws s3 sync . s3://guillaumejulien.dev > logs 2>> errors.log
+        working-directory: ./front-end/dist
+
+      - name: Upload errors artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: errors
+          path: ./terraform/errors.log

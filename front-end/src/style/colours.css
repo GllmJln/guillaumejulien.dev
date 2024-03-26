@@ -1,0 +1,17 @@
+:root {
+  --light-gray: #3f525c;
+  --dark-gray: #303841;
+  --darker-gray: #242930;
+  --blue: #5bbfab;
+  --green: #5bbf79;
+  --orange: #bf8a59;
+  --white: #fff;
+  --black: #000;
+  --purple: #9753cc;
+
+  background-color: var(--darker-gray);
+}
+
+body {
+  margin: 0;
+}

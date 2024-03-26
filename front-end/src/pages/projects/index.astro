@@ -1,0 +1,41 @@
+---
+    import MainLayout from "../../layouts/MainLayout.astro";
+    import "../../style/colours.css"
+    import GithubRepos from "../../components/GithubRepos.svelte";
+
+---
+
+<MainLayout pageTitle="Projects">
+    <a href="https://github.com/GllmJln" class="title-link">
+        <h2>Github Hosted Projects</h2>
+    </a>
+    <section id="github-repos">
+        <GithubRepos client:load />
+    </section>
+</MainLayout>
+
+<style>
+    #github-repos {
+        background-color: var(--darker-gray);
+        font-family: sans-serif;
+        display: flex;
+        flex-flow: row wrap;
+        gap: 5rem;
+        padding: 5rem;
+        justify-content: center;
+    }
+
+    .title-link {
+        text-decoration: none;
+    }
+
+    .title-link>h2 {
+        padding: 10px;
+        color: var(--green);
+    }
+
+    .title-link>h2:hover {
+        padding-left: 12px;
+        color: var(--blue);
+    }
+</style>
