@@ -1,5 +1,9 @@
+resource "random_bytes" "name_suffix" {
+  length = 15
+}
+
 resource "aws_s3_bucket" "website" {
-  bucket_prefix = "${var.domain_name}-"
+  bucket = "${var.domain_name}-${random_bytes.name_suffix.hex}"
 
   force_destroy = true
 }
