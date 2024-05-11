@@ -49,7 +49,7 @@ jobs:
       # yes, this could probably be a terraform output
       - name: Grab s3 bucket name
         run: |
-          WEB_BUCKET_NAME=$(terraform state show aws_s3_bucket.website | grep 'bucket[[:space:]]' | cut -d '"' -f 2)"
+          WEB_BUCKET_NAME=$(terraform state show aws_s3_bucket.website | grep 'bucket[[:space:]]' | cut -d '"' -f 2)
           echo "::add-mask::$WEB_BUCKET_NAME"
           echo "WEB_BUCKET_NAME=$WEB_BUCKET_NAME" >> $GITHUB_ENV
         working-directory: ./terraform
