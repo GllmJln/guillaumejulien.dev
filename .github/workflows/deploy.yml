@@ -44,11 +44,11 @@ jobs:
       - name: Terraform apply
         run: |
           terraform apply -auto-approve -no-color -var domain_name=guillaumejulien.dev > logs 2>> errors.log
+          echo "WEB_BUCKET_NAME=$(terraform state show aws_s3_bucket.website | grep 'bucket[[:space:]]' | cut -d '"' -f 2)" >> $GITHUB_ENV
         working-directory: ./terraform
 
       - name: Add files to bucket
         run: |
-          WEB_BUCKET_NAME=$(terraform state show aws_s3_bucket.website | grep 'bucket[[:space:]]' | cut -d '"' -f 2)
           aws s3 sync . s3://$WEB_BUCKET_NAME > logs 2>> errors.log
         working-directory: ./front-end/dist
 
