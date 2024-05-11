@@ -62,6 +62,7 @@ jobs:
 
       - name: Upload errors artifact
         uses: actions/upload-artifact@v3
+        if: always()
         with:
           name: errors
           path: ./terraform/errors.log
