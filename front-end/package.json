@@ -14,7 +14,7 @@
     "@astrojs/check": "^0.8.1",
     "@astrojs/svelte": "^5.6.0",
     "astro": "^4.11.5",
-    "svelte": "^5.0.0-next.131",
+    "svelte": "^5.0.0-next.184",
     "typescript": "^5.3.2"
   },
   "devDependencies": {
