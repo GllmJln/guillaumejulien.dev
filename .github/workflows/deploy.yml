@@ -64,7 +64,7 @@ jobs:
         working-directory: ./front-end/dist
 
       - name: Upload errors artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: errors
