@@ -15,7 +15,7 @@
     "@astrojs/svelte": "^6.0.2",
     "astro": "^4.16.18",
     "svelte": "^5.25.3",
-    "typescript": "^5.7.2"
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",
